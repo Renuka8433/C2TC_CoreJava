@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class circle 
 {
     String colour;
-    float radius;
+    double radius;
     Scanner c=new Scanner(System.in);
     
     	public void getinput()
@@ -19,7 +19,8 @@ public class circle
     	public void calculatearea()
     	{
     		
-             float area=3.14f*radius*radius;
+             double area=Math.PI*radius*radius;
+             System.out.println("Area of the circle is:"+area);
             
     	}
     	public static void main(String[]args)
@@ -28,7 +29,7 @@ public class circle
     	    r.getinput();
     		r.calculatearea();
     		
-    		System.out.println("Area of the circle is:");
+    		
     		
     	}
    

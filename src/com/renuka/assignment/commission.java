@@ -43,7 +43,7 @@ public class commission {
 	}
 	public static void main(String[]args)
 	{
-		Commission c=new Commission();
+		commission c=new commission();
 		c.employeedetails();
 		{
 			System.out.println("student object created");
