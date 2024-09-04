@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 @RestController
-
+@CrossOrigin(origins="http://localhost:3000")
 public class StoreController {
 	
 	
@@ -51,21 +52,23 @@ public class StoreController {
 	}
 	//update Operation
 	@PutMapping("/Stores/{storeid}")
-	public ResponseEntity<?>update(@RequestBody Store store,@PathVariable Integer storeid) 
+	public ResponseEntity<?> update(@RequestBody Store store, @PathVariable Integer storeid) 
 	{
-		try
-		{
-			Store existStore=service.get(storeid);
-			service.save(store);
-			return new ResponseEntity<Store>(store,HttpStatus.OK);
-			
-		}
-		catch(Exception e)
-		{
-			return new ResponseEntity<Store>(HttpStatus.NOT_FOUND);
-		}
-	  
+	    try {
+	        Store existStore = service.get(storeid);
+	        if (existStore != null) {
+	            store.setStoreid(storeid); // Ensure the correct ID is set
+	            service.save(store);
+	            return new ResponseEntity<>(store, HttpStatus.OK);
+	        } else {
+	            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	        }
+	    } catch (Exception e) {
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    }
 	}
+
+
 	//Delete Operation
 	@DeleteMapping("/Stores/{storeid}")
 	public void delete(@PathVariable Integer storeid)
